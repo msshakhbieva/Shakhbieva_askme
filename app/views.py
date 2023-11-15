@@ -3,8 +3,8 @@ from django.core.paginator import Paginator
 
 from app import models
 
-top_users = models.Profile.objects.all()[:10]
-top_tags = models.Tag.objects.all()[:10]
+top_users = models.Profile.objects.get_top_users()[:10]
+top_tags = models.Tag.objects.get_hot_tags()[:10]
 
 
 def create_content_right():
@@ -37,8 +37,13 @@ def pagination(objects, request):
 
 
 def index(request):
-    context = create_content(models.Question.objects.get_hot_questions(), request)
+    context = create_content(models.Question.objects.get_recent_questions(), request)
     return render(request, 'index.html', context)
+
+
+def hot(request):
+    context = create_content(models.Question.objects.get_hot_questions(), request)
+    return render(request, 'hot.html', context)
 
 
 def ask(request):
