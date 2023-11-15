@@ -19,7 +19,7 @@
                 <span class="tags_title_page3">Tags: </span>
                 <div class="question-tags">
                     {% for tag in question.tags %}
-                    <a class="tag_in_question" href="#">{{tag}}</a>
+                    <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag}}</a>
                     {% endfor %}
                 </div>
 
@@ -28,10 +28,13 @@
     </div>
 
 </div>
-
-{% for answer in question.answers %}
-    {% include 'components/answer.html' %}
-{% endfor %}
+<div>
+    <h2> <a name="answers_block">Answers</a> </h2>
+    {% for answer in content %}
+        {% include 'components/answer.html' %}
+    {% endfor %}
+    {% include 'components/paginator.html' %}
+</div>
 
 <div class="mb-3">
     <label for="exampleFormControlTextarea1" class="form-label-page3">Answer a question</label>

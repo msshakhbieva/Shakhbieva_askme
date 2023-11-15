@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 
 QUESTIONS = [
@@ -7,45 +7,78 @@ QUESTIONS = [
             "title": f"Question #{i}",
             "text": f"Question text #{i}",
             "id": i,
-            "tags": ["bebra", "adidas", "tag"],
+            "tags": ["python", "css", "django"],
             "answers": [
                 {
                     "text": f"Answer text #{k}",
-                } for k in range(3)
+                } for k in range(20)
             ]
         } for i in range(20)
     ]
+TAGS = ["python", "Voloshin", "technopark", "vkeducation", "web"]
+
+USERS = ["ms_shakhbieva", "ygim", "gallaann", "vesely_tarakan", "byankin", "tikhomirova_ea" ]
+
+PER_PAGE = 10
+
+
+def pagination(objects, request):
+    paginator = Paginator(objects, PER_PAGE)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    return page
 
 
 def index(request):
     context = {
-        "questions": QUESTIONS
+        "content": pagination(QUESTIONS, request),
+        "tags": TAGS,
+        "users": USERS
     }
     return render(request, 'index.html', context)
 
 
 def ask(request):
-    return render(request, 'question_form.html')
+    context = {
+        "tags": TAGS,
+        "users": USERS
+    }
+    return render(request, 'question_form.html', context)
 
 
 def question_page(request, q_id):
     question = QUESTIONS[q_id]
     context = {
-        "question": question
+        "question": question,
+        "tags": TAGS,
+        "users": USERS,
+        "content": pagination(question["answers"], request)
     }
     return render(request, 'question_page.html', context)
 
 
 def registration(request):
-    return render(request, 'registration.html')
+    context = {
+        "tags": TAGS,
+        "users": USERS
+    }
+    return render(request, 'registration.html', context)
 
 
 def login(request):
-    return render(request, 'login.html')
+    context = {
+        "tags": TAGS,
+        "users": USERS
+    }
+    return render(request, 'login.html', context)
 
 
 def profilesettings(request):
-    return render(request, 'profilesettings.html')
+    context = {
+        "tags": TAGS,
+        "users": USERS
+    }
+    return render(request, 'profilesettings.html', context)
 
 
 def tag(request, tag_label):
@@ -55,7 +88,9 @@ def tag(request, tag_label):
             questions.append(question)
 
     context = {
-        "questions": questions,
-        "tag_label": tag_label
+        "content": pagination(questions, request),
+        "tag_label": tag_label,
+        "tags": TAGS,
+        "users": USERS
     }
     return render(request, 'tag.html', context)

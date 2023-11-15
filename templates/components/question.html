@@ -9,19 +9,19 @@
 
     </div>
     <div class="col-9">
-        <div class="question-title"><a href=""> {{ question.title }}</a></div>
+        <div class="question-title"><a href="{% url 'question' q_id=question.id %}"> {{ question.title }}</a></div>
         <div class="question-text">{{ question.text }}
         </div>
         <div class="row align-items-end question-meta">
             <div class="col mb-5">
-                <a href="#"> Answers
-                    (3)</a>
+                <a href="{% url 'question' q_id=question.id %}#answers_block"> Answers
+                    {{question.answers.count}}</a>
             </div>
             <div class="col mb-5">
                 <span class="tags_title">Tags: </span>
                 <div class="question-tags">
                     {% for tag in question.tags %}
-                     <a class="tag_in_question" href="#">{{tag}}</a>
+                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag}}</a>
                     {% endfor %}
                 </div>
 

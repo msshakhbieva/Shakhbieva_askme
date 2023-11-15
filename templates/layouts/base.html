@@ -13,7 +13,7 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand " href="#">AskQuestion</a>
+            <a class="navbar-brand " href="{% url 'index' %}">AskQuestion</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -21,14 +21,14 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-5 mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#{ url 'askform' %}">Ask a question!</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'ask' %}">Ask a question!</a>
                     </li>
                     {% if not request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#{ url 'login' %}">Sign in</a>
+                        <a class="nav-link" href="{% url 'login' %}">Sign in</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#{ url 'register'%}" class="nav-link">Register</a>
+                        <a href="{% url 'registration'%}" class="nav-link">Register</a>
                     </li>
                     {% endif %}
                     <li>
@@ -48,7 +48,7 @@
                 <span>username</span>
                 <div>
                     <a href="#{ url 'logout'  %}">Log out</a>
-                    <a href="#{ url 'logout'  %}">Settings</a>
+                    <a href="{% url 'profile'  %}">Settings</a>
                 </div>
 
             </div>
@@ -65,27 +65,8 @@
                 {% endblock %}
             </div>
             <div class="col-4 sidecontent">
-                <div class="row">
-                    <h2> Popular tags </h2>
-                    <div class="tags">
-                        <span class="badge bg-success">Mr. Freeman</span>
-                        <span class="badge bg-danger">Dr. House</span>
-                        <span class="badge bg-dark">Bender</span>
-                        <span class="badge bg-primary">Queen Victoria</span>
-                        <span class="badge bg-secondary">Dr. Who</span>
-                    </div>
-                    <br/>
-                    <div class="upcontent">
-                        <h2>Best members</h2>
-                        <ul class="list-group" style="margin-left: 15px; margin-top: 20px; max-width: 250px;">
-                            <li class="list-group-item"><a href="">Mr.Freeman</a></li>
-                            <li class="list-group-item"><a href="">A second item</a></li>
-                            <li class="list-group-item"><a href="">A third item</a></li>
-                            <li class="list-group-item"><a href="">A fourth item</a></li>
-                            <li class="list-group-item"><a href="">And a fifth one</a></li>
-                        </ul>
-                    </div>
-                </div>
+             {% include 'components/sidebar.html'%}
+
             </div>
         </div>
     </div>
@@ -93,7 +74,7 @@
 
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted">Created by Shakhbieva Milana</span>
     </div>
 </footer>
 
