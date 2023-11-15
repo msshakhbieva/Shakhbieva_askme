@@ -1,0 +1,32 @@
+{% load static %}
+<div class="row question">
+    <div class="col-3">
+        <img src="{% static 'img/kit.jpeg' %}" alt="" class="question-image">
+        <button class="counter like_question" data-id="">
+            <img src="{%static 'img/heart.svg' %}" alt="heart">
+            <span>1</span>
+        </button>
+
+    </div>
+    <div class="col-9">
+        <div class="question-title"><a href=""> {{ question.title }}</a></div>
+        <div class="question-text">{{ question.text }}
+        </div>
+        <div class="row align-items-end question-meta">
+            <div class="col mb-5">
+                <a href="#"> Answers
+                    (3)</a>
+            </div>
+            <div class="col mb-5">
+                <span class="tags_title">Tags: </span>
+                <div class="question-tags">
+                    {% for tag in question.tags %}
+                     <a class="tag_in_question" href="#">{{tag}}</a>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

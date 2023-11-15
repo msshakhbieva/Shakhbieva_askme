@@ -1,0 +1,24 @@
+{% load static %}
+<div class="row question">
+    <div class="col-3">
+        <img src="{% static 'img/kit.jpeg' %}" alt="" class="answer-image-page3">
+        <button class="counter like_question" data-id="">
+            <img src="{% static 'img/heart.svg'%}" alt="heart">
+            <span>1</span>
+        </button>
+
+    </div>
+    <div class="col-9">
+        <div class="question-text"> {{ answer.text }}
+        </div>
+        <div class="row align-items-end question-meta">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Correct!
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>

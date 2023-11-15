@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Registration</h1>
+<form>
+    <div class="mb-3">
+        <div class="error-message"><span> Sorry, this login is not valid! </span></div>
+
+        <label for="exampleInputEmail1" class="form-label">Login</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+<div class="error-message"><span> Sorry, this email address is already registered! </span></div>
+
+        <label for="exampleInputEmail1" class="form-label">Emale</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <div class="error-message"><span> Sorry, this nickname is already taken! </span></div>
+
+        <label for="exampleInputEmail1" class="form-label">NickName</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <div class="error-message"><span> Sorry, the password must contain numbers! </span></div>
+
+        <label for="exampleInputEmail1" class="form-label">Password</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+                <div class="error-message"><span> Sorry, passwords do not match! </span></div>
+
+        <label for="exampleInputEmail1" class="form-label">Repeat Password</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01">Upload avatar</label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+    </div>
+
+
+    <div class="mb-3 form-check">
+    </div>
+    <button type="button" class="btn btn-light btn-border">Register!</button>
+
+    <div class="margin-top-fortext"><a href="#"> <span> create new account </span> </a></div>
+</form>
+{% endblock %}
