@@ -4,7 +4,7 @@
         <img src="{% static 'img/kit.jpeg' %}" alt="" class="answer-image-page3">
         <button class="counter like_question" data-id="">
             <img src="{% static 'img/heart.svg'%}" alt="heart">
-            <span>1</span>
+            <span>{{answer.get_like_count}}</span>
         </button>
 
     </div>

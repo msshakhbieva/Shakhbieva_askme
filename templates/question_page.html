@@ -5,9 +5,10 @@
 <div class="row question-on-page">
     <div class="col-3">
         <img src="{% static 'img/kit.jpeg' %}" alt="" class="question-image">
+        <span>Question by {{question.get_username}} </span>
         <button class="counter like_question" data-id="">
             <img src="{% static 'img/heart.svg' %}" alt="heart">
-            <span>1</span>
+             <span>{{question.get_like_count}}</span>
         </button>
 
     </div>
@@ -18,7 +19,7 @@
             <div class="col mb-5">
                 <span class="tags_title_page3">Tags: </span>
                 <div class="question-tags">
-                    {% for tag in question.tags %}
+                    {% for tag in question.get_tags %}
                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag.label}}</a>
                     {% endfor %}
                 </div>
