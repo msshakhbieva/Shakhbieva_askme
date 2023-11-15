@@ -22,7 +22,7 @@
                 <span class="tags_title">Tags: </span>
                 <div class="question-tags">
                     {% for tag in question.get_tags %}
-                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag.label}}</a>
+                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag.title}}</a>
                     {% endfor %}
                 </div>
 
