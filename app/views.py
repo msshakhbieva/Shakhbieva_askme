@@ -1,23 +1,30 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 
+from app import models
 
-QUESTIONS = [
-        {
-            "title": f"Question #{i}",
-            "text": f"Question text #{i}",
-            "id": i,
-            "tags": ["python", "css", "django"],
-            "answers": [
-                {
-                    "text": f"Answer text #{k}",
-                } for k in range(20)
-            ]
-        } for i in range(20)
-    ]
-TAGS = ["python", "Voloshin", "technopark", "vkeducation", "web"]
+top_users = models.Profile.objects.all()[:10]
+top_tags = models.Tag.objects.all()[:10]
 
-USERS = ["ms_shakhbieva", "ygim", "gallaann", "vesely_tarakan", "byankin", "tikhomirova_ea" ]
+
+def create_content_right():
+    content = {
+        "tags": top_tags,
+        "users": top_users,
+    }
+
+    return content
+
+
+def create_content(objects, request):
+    """Функция осуществляет пагинацию
+    переданных объектов и
+    добавляет контент для боковой панели"""
+    page = pagination(objects, request)
+    content = create_content_right()
+    content["content"] = page
+    return content
+
 
 PER_PAGE = 10
 
@@ -30,67 +37,40 @@ def pagination(objects, request):
 
 
 def index(request):
-    context = {
-        "content": pagination(QUESTIONS, request),
-        "tags": TAGS,
-        "users": USERS
-    }
+    context = create_content(models.Question.objects.get_hot_questions(), request)
     return render(request, 'index.html', context)
 
 
 def ask(request):
-    context = {
-        "tags": TAGS,
-        "users": USERS
-    }
+    context = create_content_right()
     return render(request, 'question_form.html', context)
 
 
 def question_page(request, q_id):
-    question = QUESTIONS[q_id]
-    context = {
-        "question": question,
-        "tags": TAGS,
-        "users": USERS,
-        "content": pagination(question["answers"], request)
-    }
+    question = models.Question.objects.get(id=q_id)
+
+    context = create_content(models.Answer.objects.get_answers_for_question(q_id), request)
+    context["question"] = question
+
     return render(request, 'question_page.html', context)
 
 
 def registration(request):
-    context = {
-        "tags": TAGS,
-        "users": USERS
-    }
+    context = create_content_right()
     return render(request, 'registration.html', context)
 
 
 def login(request):
-    context = {
-        "tags": TAGS,
-        "users": USERS
-    }
+    context = create_content_right()
     return render(request, 'login.html', context)
 
 
 def profilesettings(request):
-    context = {
-        "tags": TAGS,
-        "users": USERS
-    }
+    context = create_content_right()
     return render(request, 'profilesettings.html', context)
 
 
 def tag(request, tag_label):
-    questions = []
-    for question in QUESTIONS:
-        if tag_label in question["tags"]:
-            questions.append(question)
-
-    context = {
-        "content": pagination(questions, request),
-        "tag_label": tag_label,
-        "tags": TAGS,
-        "users": USERS
-    }
+    context = create_content(models.Question.objects.get_questions_for_tag(tag_label), request)
+    context["tag_label"] = models.Tag.objects.get_tag_by_title(tag_label)
     return render(request, 'tag.html', context)
