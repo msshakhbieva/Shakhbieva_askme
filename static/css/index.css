@@ -77,6 +77,10 @@ margin-bottom: 40px;
 margin-top: 15px;
 }
 
+.like_answer {
+margin-top: 15px;
+}
+
 .question-meta {
     height: 60px;
 }
@@ -161,4 +165,20 @@ margin-top: 15px;
 }
 .username {
     color: white;
+}
+
+form > .form-group {
+    margin-top: 40px;
+}
+
+.solution {
+    margin-top: 10px;
+    width: 80px;
+}
+
+.solution img {
+    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

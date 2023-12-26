@@ -105,17 +105,16 @@ class Command(BaseCommand):
     def q_likes_gen(self, profiles, questions, ratio):
         self.stdout.write("question likes generating...\n")
         likes = []
-        current_likes = []
         for i in range(150 * ratio):
             if i % 150*1000 == 0:
                 print(f'{i} question likes gererated\n')
             like = LikeQ(user=random.choice(profiles), question=random.choice(questions))
             while like in likes:
                 like = LikeQ(user=random.choice(profiles), question=random.choice(questions))
-            current_likes.append(like)
+
             likes.append(like)
 
-        LikeQ.objects.bulk_create(current_likes)
+        LikeQ.objects.bulk_create(likes)
 
     def a_likes_gen(self, profiles, answers, ratio):
         self.stdout.write("answer likes generating...\n")

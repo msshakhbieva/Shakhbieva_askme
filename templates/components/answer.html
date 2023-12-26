@@ -1,23 +1,43 @@
 {% load static %}
 <div class="row question">
     <div class="col-3">
-        <img src="{% static 'img/kit.jpeg' %}" alt="" class="answer-image-page3">
-        <button class="counter like_question" data-id="">
+        {% if answer.get_author.avatar %}
+        <img src="{{ MEDIA_URL }}{{ answer.get_author.avatar.url }}" alt="" class="question-image">
+        {% else %}
+        <img src="{% static 'img/default.png' %}" alt="" class="question-image">
+        {% endif %}
+        <span>Answer by {{answer.get_username}} </span>
+        <button class="counter like_answer" data-id="{{ answer.id }}">
             <img src="{% static 'img/heart.svg'%}" alt="heart">
             <span>{{answer.get_like_count}}</span>
         </button>
-
     </div>
     <div class="col-9">
         <div class="question-text"> {{ answer.text }}
         </div>
         <div class="row align-items-end question-meta">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Correct!
-                </label>
+            {% if answer.solution %}
+            <div class="solution" id="{{ answer.id }}">
+                <img src="{% static '/img/solution.png' %}" alt="">
             </div>
+            {% else %}
+            <div class="solution" id="{{ answer.id }}" hidden>
+                <img src="{% static '/img/solution.png' %}" alt="">
+            </div>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            {% if answer.question.get_author_id == request.user.id %}
+            <div class="form-check mt-2">
+                {% if answer.is_solution %}
+                <input class="form-check-input correct_answer" type="checkbox" data-id="{{ answer.id }} " checked>
+                <label class="form-check-label" for="flexCheckDefault">Correct!</label>
+                {% else %}
+                <input class="form-check-input correct_answer" type="checkbox" data-id="{{ answer.id }}">
+                <label class="form-check-label" for="flexCheckDefault">Correct!</label>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>

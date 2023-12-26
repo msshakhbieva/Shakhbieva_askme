@@ -1,9 +1,13 @@
 {% load static %}
 <div class="row question">
     <div class="col-3">
-        <img src="{% static 'img/kit.jpeg' %}" alt="" class="question-image">
+        {% if question.get_author.avatar %}
+        <img src="{{ MEDIA_URL }}{{ question.get_author.avatar.url }}" alt=""  class="question-image">
+        {% else %}
+        <img src="{% static 'img/default.png' %}" alt=""  class="question-image">
+        {% endif %}
         <span>Question by {{question.get_username}} </span>
-        <button class="counter like_question" data-id="">
+        <button class="counter like_question" data-id="{{ question.id }}">
             <img src="{%static 'img/heart.svg' %}" alt="heart">
             <span>{{question.get_like_count}}</span>
         </button>
@@ -22,7 +26,7 @@
                 <span class="tags_title">Tags: </span>
                 <div class="question-tags">
                     {% for tag in question.get_tags %}
-                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag.title}}</a>
+                    <a class="tag_in_question" href="{% url 'tag' tag_label=tag %}">{{tag.title}}</a>
                     {% endfor %}
                 </div>
 

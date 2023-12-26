@@ -38,20 +38,24 @@
                         </form>
                     </li>
                 </ul>
-                <!--                todo check authentication -->
-
             </div>
+            {% if request.user.is_authenticated %}
             <div class="avatar-auth">
-                <img src="{% static '/img/kit.jpeg' %}" alt="">
+                {% if request.user.profile_related.avatar %}
+                <img src="{{ request.user.profile_related.avatar.url }}" alt="">
+                {% else %}
+                <img src="{% static '/img/default.png' %}" alt="">
+                {% endif %}
             </div>
             <div class="username">
-                <span>username</span>
+                <span>{{ request.user.username }}</span>
                 <div>
-                    <a href="#{ url 'logout'  %}">Log out</a>
-                    <a href="{% url 'profile'  %}">Settings</a>
+                    <a href="{% url 'logout' %}">Log out</a>
+                    <a href="{% url 'profile' %}">Settings</a>
                 </div>
-
             </div>
+            {% endif %}
+
         </div>
     </nav>
 </header>
@@ -65,7 +69,7 @@
                 {% endblock %}
             </div>
             <div class="col-4 sidecontent">
-             {% include 'components/sidebar.html'%}
+                {% include 'components/sidebar.html'%}
 
             </div>
         </div>
@@ -87,5 +91,7 @@
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script  src="{% static 'js/csrftoken.js' %}"></script>
+<script  async src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
